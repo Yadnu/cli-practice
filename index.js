@@ -4,7 +4,8 @@ const fs = require('fs');
 const program = new Command();
 
 program
-    .command( 'count')
+    .command( 'countLines')
+    .description("Counts the lines from the given files")
     .argument('<file>')
     .action((path) =>{
         fs.readFile(path, 'utf8', (err, data) =>{
@@ -17,6 +18,22 @@ program
             }
         });
         
-    })
+    });
+
+program
+    .command('countWords')
+    .description("Counts the number of words from the give file")
+    .argument('<files>')
+    .action((file) => {
+        fs.readFile(file, "utf-8", (err, data)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                const words = data.split(" ");
+                console.log(`There are ${words.length} words in ${file} `);
+            }
+        })
+    });
 
 program.parse();

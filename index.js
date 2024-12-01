@@ -91,5 +91,20 @@ program
             });
         });
     });
+program
+    .command('countChar')
+    .argument("<filePath>")
+    .description("count all Characters")
+    .action((file) =>{
+        fs.readFile(file, "utf-8", (err, data)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                const words = data.split(" ");
+                console.log(`There are ${words.length} words in ${file} `);
+            }
+        })
+    })
 
 program.parse();
